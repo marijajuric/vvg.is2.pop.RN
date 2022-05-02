@@ -106,11 +106,8 @@ INSERT INTO public.material VALUES (1,'12345','Napajanje', 1);
 INSERT INTO public.material VALUES (2,'456789','Maticna', 1);
 INSERT INTO public.material VALUES (3,'89456','Baterija', 2);
 
-INSERT INTO public.work_order VALUES (1,'3456',DATE '2019-01-21', DATE '2019-12-21', 'Ne radi', 'Popravak uredaja', 1,1,1);
-INSERT INTO public.work_order VALUES (2,'3456',DATE '2019-01-21', DATE '2019-12-21', 'Ne radi', 'Popravak uredaja', 2,2,2);
-INSERT INTO public.work_order VALUES (3,'7891',DATE '2017-12-21', DATE '2018-12-21', 'Ne radi', 'Popravak uredaja, test ok', 3,3,3);
-INSERT INTO public.work_order VALUES (4,'5698',DATE '2020-07-05', DATE '2021-08-06', 'Ne radi baterija', 'Popravak uredaja', 3,3,3);
+INSERT INTO public.work_order VALUES (1,'3456',DATE '2019-01-21', DATE '2019-12-21', 'Ne radi', 'Popravak uredaja');
+INSERT INTO public.work_order VALUES (2,'3456',DATE '2019-01-21', DATE '2019-12-21', 'Ne radi', 'Popravak uredaja');
+INSERT INTO public.work_order VALUES (3,'7891',DATE '2017-12-21', DATE '2018-12-21', 'Ne radi', 'Popravak uredaja, test ok');
+INSERT INTO public.work_order VALUES (4,'5698',DATE '2020-07-05', DATE '2021-08-06', 'Ne radi baterija', 'Popravak uredaja');
 
-INSERT INTO public.work_order_service VALUES (1,2);
-INSERT INTO public.work_order_service VALUES (2,3);
-INSERT INTO public.work_order_service VALUES (3,1);
