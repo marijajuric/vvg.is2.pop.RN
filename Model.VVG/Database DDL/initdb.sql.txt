@@ -1,0 +1,116 @@
+﻿DROP TABLE IF EXISTS public.equipment;
+
+CREATE TABLE IF NOT EXISTS public.equipment
+(
+    id integer NOT NULL,
+    serial_number character varying COLLATE pg_catalog."default",
+    name character varying COLLATE pg_catalog."default",
+    model character varying COLLATE pg_catalog."default",
+    CONSTRAINT "PK_equipment" PRIMARY KEY (id)
+);
+
+--TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.equipment
+    OWNER to postgres;
+
+-- Table: public.material
+
+DROP TABLE IF EXISTS public.material;
+
+CREATE TABLE IF NOT EXISTS public.material
+(
+    id integer NOT NULL,
+    code character varying COLLATE pg_catalog."default",
+    name character varying COLLATE pg_catalog."default",
+    unit_of_measure integer,
+    CONSTRAINT "PK_material" PRIMARY KEY (id)
+);
+
+--TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.material
+    OWNER to postgres;
+
+-- Table: public.service
+
+DROP TABLE IF EXISTS public.service;
+
+CREATE TABLE IF NOT EXISTS public.service
+(
+    id integer NOT NULL,
+    service_name character varying COLLATE pg_catalog."default",
+    service_price integer,
+    hours_spent integer,
+    CONSTRAINT "PK_service" PRIMARY KEY (id)
+);
+
+--TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.service
+    OWNER to postgres;
+
+-- Table: public.work_order
+
+DROP TABLE IF EXISTS public.work_order;
+
+CREATE TABLE IF NOT EXISTS public.work_order
+(
+    id integer NOT NULL,
+    order_number integer,
+    date_of_receipt date,
+    completion_date date,
+    fault_description character varying COLLATE pg_catalog."default",
+    solution_description character varying COLLATE pg_catalog."default",
+    CONSTRAINT "PK_work_order" PRIMARY KEY (id)
+);
+
+--TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.work_order
+    OWNER to postgres;
+
+-- Table: public.work_order_service
+
+DROP TABLE IF EXISTS public.work_order_service;
+
+CREATE TABLE IF NOT EXISTS public.work_order_service
+(
+    id integer NOT NULL,
+	work_order_id integer DEFAULT 0, 
+    service_id integer DEFAULT 0,
+    CONSTRAINT "pk_work_order_service" PRIMARY KEY (id),
+    CONSTRAINT fk_work_order
+      FOREIGN KEY(work_order_id) 
+	  REFERENCES work_order(id),
+    CONSTRAINT fk_service
+      FOREIGN KEY(service_id) 
+	  REFERENCES service(id)
+
+);
+
+--TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.work_order_service
+    OWNER to postgres;
+
+INSERT INTO public.service VALUES (1,'Ciscenje',100, 1);
+INSERT INTO public.service VALUES (2,'Popravak ventilatora',150, 1);
+INSERT INTO public.service VALUES (3,'Dijagnostika',150, 1);
+
+INSERT INTO public.equipment VALUES (1,'1258IZ25','Racunalo', 'HP');
+INSERT INTO public.equipment VALUES (2,'CD123456','Racunalo', 'Dell');
+INSERT INTO public.equipment VALUES (3,'8218KZT3','UPS', 'APC');
+
+INSERT INTO public.material VALUES (1,'12345','Napajanje', 1);
+INSERT INTO public.material VALUES (2,'456789','Maticna', 1);
+INSERT INTO public.material VALUES (3,'89456','Baterija', 2);
+
+INSERT INTO public.work_order VALUES (1,'3456',DATE '2019-01-21', DATE '2019-12-21', 'Ne radi', 'Popravak uredaja', 1,1,1);
+INSERT INTO public.work_order VALUES (2,'3456',DATE '2019-01-21', DATE '2019-12-21', 'Ne radi', 'Popravak uredaja', 2,2,2);
+INSERT INTO public.work_order VALUES (3,'7891',DATE '2017-12-21', DATE '2018-12-21', 'Ne radi', 'Popravak uredaja, test ok', 3,3,3);
+INSERT INTO public.work_order VALUES (4,'5698',DATE '2020-07-05', DATE '2021-08-06', 'Ne radi baterija', 'Popravak uredaja', 3,3,3);
+
+INSERT INTO public.work_order_service VALUES (1,2);
+INSERT INTO public.work_order_service VALUES (2,3);
+INSERT INTO public.work_order_service VALUES (3,1);
